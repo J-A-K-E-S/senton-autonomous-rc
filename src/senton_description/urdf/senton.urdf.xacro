@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="senton">
+    <!-- vehicle dimensions-->
+     <xacro:property name="vehicle_length" value="0.558"/>
+     <xacro:property name="vehicle_width" value="0.305"/>
+     <xacro:property name="vehicle_height" value="0.210"/>
+     <xacro:property name="vehicle_mass" value="3.55"/>
+     <xacro:property name= "wheelbase" value="0.327"/>
+    <!-- wheel dimensions-->
+     <xacro:property name="wheel_radius" value="0.052"/>
+     <xacro:property name="wheel_width" value="0.042"/>
+     <xacro:property name="track_width" value="0.263"/>
+     
+    <xacro:property name="chassis_length" value="0.40"/>
+    <xacro:property name="chassis_width"  value="0.16"/>
+    <xacro:property name="chassis_height" value="0.09"/>
+    <xacro:property name="chassis_z"      value="0.03"/>
+    <link name="base_footprint"/>
+        <joint name="base_footprint_joint" type="fixed">
+            <parent link="base_footprint"/>
+            <child link="base_link"/>
+            <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0"/>
+        </joint>
+    
+     <link name="base_link">
+    <visual>
+        <origin xyz="0 0 ${chassis_z}" rpy="0 0 0"/>
+
+        <geometry>
+            <box size="${chassis_length} ${chassis_width} ${chassis_height}"/>
+        </geometry>
+
+        <material name="blue">
+            <color rgba="0 0 1 1"/>
+        </material>
+    </visual>
+</link>
+    <!-- Wheel macro -->
+<xacro:macro name="wheel" params="name parent x y">
+
+    <joint name="${name}_joint" type="continuous">
+        <parent link="${parent}"/>
+        <child link="${name}_wheel_link"/>
+
+        <origin xyz="${x} ${y} 0" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <link name="${name}_wheel_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+
+            <geometry>
+                <cylinder
+                    radius="${wheel_radius}"
+                    length="${wheel_width}"/>
+            </geometry>
+
+            <material name="black">
+                <color rgba="0 0 0 1"/>
+            </material>
+        </visual>
+    </link>
+
+</xacro:macro>
+
+
+<!-- Front steering knuckle macro -->
+<xacro:macro name="steering_knuckle" params="name x y">
+
+    <link name="${name}_knuckle_link"/>
+
+    <joint name="${name}_steering_joint" type="revolute">
+        <parent link="base_link"/>
+        <child link="${name}_knuckle_link"/>
+
+        <origin xyz="${x} ${y} 0" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+
+        <limit
+            lower="-0.5"
+            upper="0.5"
+            effort="10"
+            velocity="5"/>
+    </joint>
+
+</xacro:macro>
+
+   <!-- Create front steering knuckles -->
+<xacro:steering_knuckle
+    name="front_left"
+    x="${wheelbase/2}"
+    y="${track_width/2}"
+/>
+
+<xacro:steering_knuckle
+    name="front_right"
+    x="${wheelbase/2}"
+    y="${-track_width/2}"
+/>
+
+
+<!-- Front wheels attach to their steering knuckles -->
+<xacro:wheel
+    name="front_left"
+    parent="front_left_knuckle_link"
+    x="0"
+    y="0"
+/>
+
+<xacro:wheel
+    name="front_right"
+    parent="front_right_knuckle_link"
+    x="0"
+    y="0"
+/>
+
+
+<!-- Rear wheels attach directly to base_link -->
+<xacro:wheel
+    name="rear_left"
+    parent="base_link"
+    x="${-wheelbase/2}"
+    y="${track_width/2}"
+/>
+
+<xacro:wheel
+    name="rear_right"
+    parent="base_link"
+    x="${-wheelbase/2}"
+    y="${-track_width/2}"
+/>
+</robot>
