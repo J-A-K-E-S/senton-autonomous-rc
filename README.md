@@ -82,6 +82,10 @@ Dimensions are taken from manufacturer specifications and tyre measurements. Cha
 
 ## Current Robot Model
 
+![ARRMA SENTON ROS 2 vehicle model in RViz with front steering joints](docs/images/senton_rviz.png)
+
+*Current Xacro vehicle model visualised in RViz with TF frames and independently controllable front steering joints.*
+
 The vehicle description is written in Xacro so physical dimensions are maintained as named parameters rather than duplicated throughout the URDF.
 
 Implemented:
