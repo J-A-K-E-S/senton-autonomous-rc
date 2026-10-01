@@ -1,21 +1,7 @@
 <?xml version="1.0"?>
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="senton">
-    <!-- vehicle dimensions-->
-     <xacro:property name="vehicle_length" value="0.558"/>
-     <xacro:property name="vehicle_width" value="0.305"/>
-     <xacro:property name="vehicle_height" value="0.210"/>
-     <xacro:property name="vehicle_mass" value="3.55"/>
-     <xacro:property name= "wheelbase" value="0.327"/>
-    <!-- wheel dimensions-->
-     <xacro:property name="wheel_radius" value="0.052"/>
-     <xacro:property name="wheel_width" value="0.042"/>
-     <xacro:property name="track_width" value="0.263"/>
-     
-    <xacro:property name="chassis_length" value="0.40"/>
-    <xacro:property name="chassis_width"  value="0.16"/>
-    <xacro:property name="chassis_height" value="0.09"/>
-    <xacro:property name="chassis_z"      value="0.03"/>
+   <xacro:include filename="$(find senton_description)/urdf/senton_properties.xacro"/>
     <link name="base_footprint"/>
         <joint name="base_footprint_joint" type="fixed">
             <parent link="base_footprint"/>
@@ -35,6 +21,13 @@
             <color rgba="0 0 1 1"/>
         </material>
     </visual>
+    <xacro:box_inertia
+        m="${chassis_mass}"
+        x="${chassis_length}"
+        y="${chassis_width}"
+        z="${chassis_height}"
+        o_xyz="0 0 ${chassis_z}"
+        o_rpy="0 0 0"/>
 </link>
     <!-- Wheel macro -->
 <xacro:macro name="wheel" params="name parent x y">
@@ -61,6 +54,12 @@
                 <color rgba="0 0 0 1"/>
             </material>
         </visual>
+        <xacro:cylinder_inertia
+            m="${wheel_mass}"
+            r="${wheel_radius}"
+            l="${wheel_width}"
+            o_xyz="0 0 0"
+            o_rpy="${pi/2} 0 0"/>
     </link>
 
 </xacro:macro>
