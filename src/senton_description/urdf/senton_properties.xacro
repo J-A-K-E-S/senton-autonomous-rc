@@ -18,7 +18,12 @@
     <xacro:property name="chassis_height" value="0.09"/>
     <xacro:property name="chassis_z"      value="0.03"/>
     <xacro:property name="chassis_mass"
-                value="${vehicle_mass - 4 * wheel_mass}"/>
+                value="${vehicle_mass - 4 * wheel_mass - 2 * knuckle_mass}"/>
+    <!-- Temporary steering knuckle approximation -->
+<xacro:property name="knuckle_mass" value="0.01"/>
+<xacro:property name="knuckle_length" value="0.02"/>
+<xacro:property name="knuckle_width" value="0.02"/>
+<xacro:property name="knuckle_height" value="0.02"/>
 
       <!-- Inertia macros -->
     <xacro:macro name="box_inertia" params="m x y z o_xyz o_rpy">
