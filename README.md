@@ -85,8 +85,13 @@ Dimensions are taken from manufacturer specifications and tyre measurements. Cha
 ![ARRMA SENTON ROS 2 vehicle model in RViz with front steering joints](docs/images/senton_rviz.png)
 
 *Current Xacro vehicle model visualised in RViz with TF frames and independently controllable front steering joints.*
+## Gazebo Simulation
 
-The vehicle description is written in Xacro so physical dimensions are maintained as named parameters rather than duplicated throughout the URDF.
+## Gazebo Simulation
+
+![ARRMA SENTON simulation model in Gazebo Harmonic](docs/images/senton_gazebo.png)
+
+*Current SENTON model spawned in Gazebo Harmonic with collision geometry and inertial properties.*
 
 Implemented:
 
