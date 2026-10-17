@@ -11,15 +11,22 @@
     </node>
 
     <!-- Gazebo -->
-    <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
-        <arg name="gz_args" value="empty.sdf -r"/>
-    </include>
+<include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+    <arg name="gz_args"
+         value="$(find-pkg-share senton_description)/worlds/senton_world.sdf -r"/>
+</include>
 
     <!-- Bridge Gazebo simulation clock into ROS -->
     <node pkg="ros_gz_bridge"
-          exec="parameter_bridge"
-          args="/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock"
-          output="screen"/>
+      exec="parameter_bridge"
+      name="clock_bridge"
+      args="/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock"
+      output="screen"/>
+    <node pkg="ros_gz_bridge"
+      exec="parameter_bridge"
+      name="scan_bridge"
+      args="/scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan"
+      output="screen"/>
 
     <!-- Spawn SENTON -->
     <node pkg="ros_gz_sim"

@@ -21,8 +21,8 @@ ackermann_controller:
       - rear_left_joint
 
     wheelbase: 0.327
-    traction_track_width: 0.263
-    steering_track_width: 0.263
+    traction_track_width: 0.255
+    steering_track_width: 0.255
     traction_wheels_radius: 0.052
 
     enable_odom_tf: true
