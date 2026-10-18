@@ -92,6 +92,16 @@ Dimensions are taken from manufacturer specifications and tyre measurements. Cha
 
 *ARRMA SENTON model running in Gazebo Harmonic with collision geometry, inertial properties and ROS 2 vehicle control.*
 
+### Closed-Course Test Environment
+
+![SENTON closed-course environment in Gazebo](docs/images/senton_closed_course_gazebo.png)
+
+*Custom closed-course Gazebo environment with perimeter walls and a central island for LiDAR, SLAM, localisation and planning experiments.*
+
+![RPLIDAR scan of the closed course in RViz](docs/images/senton_closed_course_rviz.png)
+
+*Simulated RPLIDAR S2 scan visualised in RViz, showing the course boundaries and central island from the `/scan` topic.*
+
 Implemented:
 
 - `base_footprint` ground reference frame
@@ -253,7 +263,7 @@ The Joint State Publisher GUI exposes the wheel and front steering joints, allow
 - [x] Verify steering and wheel joints in RViz
 - [x] Add simplified chassis geometry
 - [x] Add collision geometry and inertial properties
-- [ ] Add LiDAR, camera and IMU frames
+- [x ] Add LiDAR, camera and IMU frames
 - [ ] Refine chassis dimensions from physical measurements
 
 **Simulation and vehicle control**
